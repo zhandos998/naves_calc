@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>My first three.js app</title>
+		<style>
+			body { margin: 0; }
+		</style>
+        <script type="importmap">
+            {
+              "imports": {
+                "three": "https://cdn.jsdelivr.net/npm/three@v0.149.0/build/three.module.js",
+                "three/addons/": "https://cdn.jsdelivr.net/npm/three@v0.149.0/examples/jsm/"
+              }
+            }
+          </script>
+	</head>
+	<body>
+		<!-- npx serve . -->
+		<script type="module" src="/main_v2.js"></script>
+		<div id="info" style="position: absolute; top: 10px; left: 10px; background: white; padding: 10px; border-radius: 5px;">
+			<p>Ширина: <span id="width">6</span> м</p>
+			<p>Длина: <span id="depth">4</span> м</p>
+			<p>Высота: <span id="height">3</span> м</p>
+		</div>
+		<div id="camera-info" style="position: absolute; top: 10px; right: 10px; background: white; padding: 10px; border-radius: 5px;">
+			<p>Камера: <span id="camera-pos"></span></p>
+		</div>
+		<div id="controls" style="position: absolute; bottom: 10px; left: 10px; background: white; padding: 10px; border-radius: 5px;">
+			<label>Ширина: <input type="number" id="input-width" value="4" step="0.1"></label>
+			<label>Длина: <input type="number" id="input-depth" value="10" step="0.1"></label>
+			<label>Высота: <input type="number" id="input-height" value="5" step="0.1"></label>
+			<label>Толщина столбцов: <input type="number" id="input-post-thickness" value="0.2" step="0.05"></label>
+			<label>Форма фермы:
+				<select id="input-frame-type">
+					<!-- <option value="double-slope-arched">Двухскатный с арочным основанием</option> -->
+					<option value="arched">Арочный</option>
+					<option value="half-arched">Полуарочный</option>
+					<option value="single-slope">Односкатный</option>
+					<option value="triangular">Треугольный</option>
+					<option value="channel">Швелер</option>
+					<option value="double-slope">Двухскатный</option>
+				</select>
+			</label>
+		</div>
+
+		
+	</body>
+</html>
