@@ -8,12 +8,16 @@ use App\Models\Contact;
 use App\Models\Vacancy;
 use App\Models\Review;
 use App\Models\Portfolio;
+use App\Models\Commodity;
+use App\Models\Service;
 
 class PageController extends Controller
 {
     public function index()
     {
-        return view('user.index');
+        $commodities = Commodity::latest()->take(6)->get();
+        $services = Service::latest()->take(6)->get();
+        return view('user.index', compact('commodities', 'services'));
     }
 
     public function about()

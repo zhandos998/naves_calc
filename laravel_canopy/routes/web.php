@@ -9,22 +9,25 @@ use App\Http\Controllers\Admin\VacancyController as AdminVacancyController;
 use App\Http\Controllers\Admin\ReviewController as AdminReviewController;
 use App\Http\Controllers\Admin\PortfolioController as AdminPortfolioController;
 use App\Http\Controllers\Admin\CommodityController as AdminCommodityController;
-
+use App\Http\Controllers\Admin\ServiceController as AdminServiceController;
+use App\Http\Controllers\Admin\CalcController as AdminCalcController;
 use App\Http\Controllers\Admin\AdminController;
 
 
+use App\Http\Controllers\User\PageController;
 use App\Http\Controllers\User\ReviewController;
 use App\Http\Controllers\User\CommodityController;
-use App\Http\Controllers\User\PageController;
+use App\Http\Controllers\User\ServiceController;
+use App\Http\Controllers\User\CalcController;
 
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -42,10 +45,14 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
     Route::resource('reviews', AdminReviewController::class);
     Route::resource('portfolio', AdminPortfolioController::class);
     Route::resource('commodities', AdminCommodityController::class)->names('admin.commodities');
+    Route::resource('services', AdminServiceController::class)->names('admin.services');
+    // Route::get('/calc', [AdminCalcController::class, 'index'])->name('calc.index');
+    // Route::post('/calc', [AdminCalcController::class, 'calculate'])->name('calc.calculate');
+
 });
 
 
-Route::get('/', [PageController::class, 'index']);
+Route::get('/', [PageController::class, 'index'])->name('index');
 Route::get('/about', [PageController::class, 'about']);
 Route::get('/contacts', [PageController::class, 'contacts']);
 Route::get('/vacancies', [PageController::class, 'vacancies']);
@@ -56,3 +63,10 @@ Route::get('/portfolio', [PageController::class, 'portfolio']);
 
 Route::get('/commodities', [CommodityController::class, 'index'])->name('commodities.index');
 Route::get('/commodities/{id}', [CommodityController::class, 'show'])->name('commodities.show');
+
+Route::get('/services', [ServiceController::class, 'index'])->name('services.index');
+Route::get('/services/{slug}', [ServiceController::class, 'show'])->name('services.show');
+
+// CalcController
+Route::get('/calc', [CalcController::class, 'index'])->name('calc.index');
+Route::post('/calc', [CalcController::class, 'calculate'])->name('calc.calculate');

@@ -21,6 +21,13 @@ class DatabaseSeeder extends Seeder
         // ]);
         $this->call([
             UserSeeder::class,
+            CommoditiesSeeder::class,
+            ServiceSeeder::class,
+            PortfolioSeeder::class,
+            ReviewsSeeder::class,
+            VacanciesSeeder::class,
+
         ]);
     }
 }
+// php artisan db:seed --class=ServiceSeeder

@@ -19,7 +19,7 @@
                             </div>
                         </div>
                         <p class="text-gray-700">
-                            "{{ $review->content }}"
+                            {{ $review->content }}
                         </p>
                     </div>
                 @empty

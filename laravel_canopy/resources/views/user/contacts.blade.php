@@ -39,12 +39,12 @@
                 </div>
 
                 {{-- Карта (если нужна) --}}
-                <div>
+                {{-- <div>
                     <iframe
                         src="https://www.google.com/maps/embed?pb=!1m18!..."
                         width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy">
                     </iframe>
-                </div>
+                </div> --}}
 
             </div>
         </div>
