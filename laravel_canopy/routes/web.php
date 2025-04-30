@@ -19,7 +19,7 @@ use App\Http\Controllers\User\ReviewController;
 use App\Http\Controllers\User\CommodityController;
 use App\Http\Controllers\User\ServiceController;
 use App\Http\Controllers\User\CalcController;
-
+use App\Http\Controllers\User\RequestController;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -37,18 +37,17 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__.'/auth.php';
 
-Route::prefix('admin')->middleware(['auth'])->group(function () {
-    Route::get('/', [AdminController::class, 'index'])->name('admin_dashboard');
+Route::prefix('admin')->middleware(['auth'])->name('admin.')->group(function () {
+    Route::get('/', [AdminController::class, 'index'])->name('dashboard');
     Route::resource('about', AdminAboutController::class)->only(['edit', 'update']);
     Route::resource('contacts', AdminContactController::class)->only(['edit', 'update']);
     Route::resource('vacancies', AdminVacancyController::class);
     Route::resource('reviews', AdminReviewController::class);
     Route::resource('portfolio', AdminPortfolioController::class);
-    Route::resource('commodities', AdminCommodityController::class)->names('admin.commodities');
-    Route::resource('services', AdminServiceController::class)->names('admin.services');
-    // Route::get('/calc', [AdminCalcController::class, 'index'])->name('calc.index');
-    // Route::post('/calc', [AdminCalcController::class, 'calculate'])->name('calc.calculate');
-
+    Route::resource('commodities', AdminCommodityController::class)->names('commodities');
+    Route::resource('services', AdminServiceController::class)->names('services');
+    Route::get('/calc', [AdminCalcController::class, 'index'])->name('calc.index');
+    Route::post('/calc', [AdminCalcController::class, 'update'])->name('calc.update');
 });
 
 
@@ -70,3 +69,6 @@ Route::get('/services/{slug}', [ServiceController::class, 'show'])->name('servic
 // CalcController
 Route::get('/calc', [CalcController::class, 'index'])->name('calc.index');
 Route::post('/calc', [CalcController::class, 'calculate'])->name('calc.calculate');
+
+Route::post('/request', [RequestController::class, 'store'])->name('request.store');
+

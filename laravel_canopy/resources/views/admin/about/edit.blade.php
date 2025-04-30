@@ -11,7 +11,7 @@
                 <div class="text-gray-800">
                     <h1 class="text-2xl font-bold mb-6">Редактирование страницы "О нас"</h1>
 
-                    <form action="{{ route('about.update', 1) }}" method="POST" class="space-y-6">
+                    <form action="{{ route('admin.about.update', 1) }}" method="POST" class="space-y-6">
                         @csrf
                         @method('PUT')
 

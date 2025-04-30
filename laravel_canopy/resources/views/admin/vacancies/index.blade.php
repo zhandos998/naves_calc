@@ -8,7 +8,7 @@
     <div class="py-12 bg-gray-100 min-h-screen">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
             <div class="flex justify-end">
-                <a href="{{ route('vacancies.create') }}" class="inline-block bg-green-600 text-white py-2 px-4 rounded hover:bg-green-700 transition">
+                <a href="{{ route('admin.vacancies.create') }}" class="inline-block bg-green-600 text-white py-2 px-4 rounded hover:bg-green-700 transition">
                     Добавить вакансию
                 </a>
             </div>
@@ -20,9 +20,9 @@
                         <p class="text-gray-600 mb-4">{{ $vacancy->description }}</p>
 
                         <div class="flex space-x-4">
-                            <a href="{{ route('vacancies.edit', $vacancy->id) }}" class="text-blue-600 hover:underline">Редактировать</a>
+                            <a href="{{ route('admin.vacancies.edit', $vacancy->id) }}" class="text-blue-600 hover:underline">Редактировать</a>
 
-                            <form action="{{ route('vacancies.destroy', $vacancy->id) }}" method="POST" onsubmit="return confirm('Удалить вакансию?')" class="inline">
+                            <form action="{{ route('admin.vacancies.destroy', $vacancy->id) }}" method="POST" onsubmit="return confirm('Удалить вакансию?')" class="inline">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="text-red-600 hover:underline">Удалить</button>

@@ -8,7 +8,7 @@
     <div class="py-12 bg-gray-100 min-h-screen">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
             <div class="flex justify-end">
-                <a href="{{ route('portfolio.create') }}" class="inline-block bg-green-600 text-white py-2 px-4 rounded hover:bg-green-700 transition">
+                <a href="{{ route('admin.portfolio.create') }}" class="inline-block bg-green-600 text-white py-2 px-4 rounded hover:bg-green-700 transition">
                     Добавить работу
                 </a>
             </div>
@@ -31,9 +31,9 @@
                             </div>
 
                             <div class="flex justify-between items-center mt-auto">
-                                <a href="{{ route('portfolio.edit', $work->id) }}" class="text-blue-600 hover:underline">Редактировать</a>
+                                <a href="{{ route('admin.portfolio.edit', $work->id) }}" class="text-blue-600 hover:underline">Редактировать</a>
 
-                                <form action="{{ route('portfolio.destroy', $work->id) }}" method="POST" onsubmit="return confirm('Удалить работу?')" class="inline">
+                                <form action="{{ route('admin.portfolio.destroy', $work->id) }}" method="POST" onsubmit="return confirm('Удалить работу?')" class="inline">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="text-red-600 hover:underline">Удалить</button>

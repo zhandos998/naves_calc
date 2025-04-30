@@ -182,7 +182,7 @@
 
                 @role('admin')
                     <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                        <x-nav-link :href="route('admin_dashboard')" :active="request()->routeIs('admin_dashboard')">
+                        <x-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('admin_dashboard')">
                             {{ __('Панель администратора') }}
                         </x-nav-link>
                     </div>
@@ -208,7 +208,7 @@
 
                     <x-slot name="content">
                         <x-dropdown-link :href="route('profile.edit')">
-                            {{ __('Profile') }}
+                            {{ __('Профиль') }}
                         </x-dropdown-link>
 
                         <!-- Authentication -->
@@ -218,11 +218,27 @@
                             <x-dropdown-link :href="route('logout')"
                                     onclick="event.preventDefault();
                                                 this.closest('form').submit();">
-                                {{ __('Log Out') }}
+                                {{ __('Выйти') }}
                             </x-dropdown-link>
                         </form>
                     </x-slot>
                 </x-dropdown>
+            </div>
+
+            @else
+            <div class="flex">
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="url('/login')" :active="request()->is('login')">
+                        Авторизация
+                    </x-nav-link>
+
+                </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="url('/register')" :active="request()->is('register')">
+                        Регистрация
+                    </x-nav-link>
+
+                </div>
             </div>
             @endauth
 
@@ -242,7 +258,7 @@
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link :href="route('index')" :active="request()->routeIs('index')">
-                {{ __('Main') }}
+                {{ __('Главная') }}
             </x-responsive-nav-link>
         </div>
 
@@ -257,7 +273,7 @@
 
             <div class="mt-3 space-y-1">
                 <x-responsive-nav-link :href="route('profile.edit')">
-                    {{ __('Profile') }}
+                    {{ __('Профиль') }}
                 </x-responsive-nav-link>
 
                 <!-- Authentication -->
@@ -267,7 +283,7 @@
                     <x-responsive-nav-link :href="route('logout')"
                             onclick="event.preventDefault();
                                         this.closest('form').submit();">
-                        {{ __('Log Out') }}
+                        {{ __('Выйти') }}
                     </x-responsive-nav-link>
                 </form>
             </div>
