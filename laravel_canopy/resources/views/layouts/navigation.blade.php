@@ -12,13 +12,13 @@
                 </div>
 
                 <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                {{-- <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="url('/calc')" :active="request()->is('calc')">
                         Калькулятор 3D
                     </x-nav-link>
-                </div>
+                </div> --}}
                 {{-- Калькуляторы --}}
-                {{-- <div class="hidden sm:flex sm:items-center sm:ms-6 space-x-6">
+                <div class="hidden sm:flex sm:items-center sm:ms-6 space-x-6">
 
                     <x-dropdown align="right" width="48">
                             <x-slot name="trigger">
@@ -34,12 +34,14 @@
                                 <x-dropdown-link :href="url('/calc')">
                                     Калькулятор навесов
                                 </x-dropdown-link>
-                                <x-dropdown-link :href="url('/calcfarm')">
-                                    Калькулятор ферм
+                                @auth
+                                <x-dropdown-link :href="url('/my-reports')">
+                                    Мои отчеты
                                 </x-dropdown-link>
+                                @endauth
                             </x-slot>
                     </x-dropdown>
-                </div> --}}
+                </div>
                 <div class="hidden sm:flex sm:items-center sm:ms-6 space-x-6">
                     {{-- Навесы --}}
                     <x-dropdown align="right" width="64">

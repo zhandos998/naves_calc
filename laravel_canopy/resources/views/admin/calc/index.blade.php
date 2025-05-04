@@ -11,6 +11,12 @@
                 </div>
             @endif
 
+            <div class="mb-4">
+                <a href="{{ route('admin.requests.index') }}"
+                    class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded shadow text-sm my-8">
+                    Посмотреть все заявки
+                </a>
+            </div>
             <form method="POST" action="{{ route('admin.calc.update') }}">
                 @csrf
 

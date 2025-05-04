@@ -89,4 +89,23 @@ class CalcController extends Controller
         ]);
     }
 
+    public function fromSaved($id)
+    {
+        $request = DB::table('requests')->find($id);
+
+        if (!$request) {
+            abort(404);
+        }
+
+        return view('user.calc', [
+            'prefill' => [
+                'width' => $request->width,
+                'length' => $request->length,
+                'height' => $request->height,
+                'post_thickness' => $request->post_thickness,
+                'frame_type' => $request->frame_type,
+            ],
+        ]);
+    }
+
 }

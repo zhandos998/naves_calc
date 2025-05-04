@@ -50,6 +50,7 @@ class UserSeeder extends Seeder
         $user2 = new User();
         $user2->name = 'Zhandos';
         $user2->email = 'zhandos998@gmail.com';
+        $user2->phone = '77473186847';
         $user2->password = bcrypt('123456789');
         $user2->email_verified_at = "2025-04-26 21:10:43";
         $user2->save();

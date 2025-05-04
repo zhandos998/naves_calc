@@ -1214,12 +1214,15 @@ function updateCanopy() {
     }
 }
 
+updateCanopy()
 // Подключение событий к input'ам
 document.getElementById('input-width').oninput = updateCanopy;
 document.getElementById('input-depth').oninput = updateCanopy;
 document.getElementById('input-height').oninput = updateCanopy;
 document.getElementById('input-post-thickness').oninput = updateCanopy;
 document.getElementById('input-frame-type').onchange = updateCanopy;
+
+
 
 document.getElementById('save-canvas-btn').addEventListener('click', () => {
     renderer.render(scene, camera); // <== ещё раз на всякий случай
@@ -1231,3 +1234,18 @@ document.getElementById('save-canvas-btn').addEventListener('click', () => {
     link.download = 'canopy-visualization.png';
     link.click();
 });
+
+document.getElementById('save-canvas-btn-2').addEventListener('click', () => {
+    renderer.render(scene, camera); // <== ещё раз на всякий случай
+    // const canvas = document.getElementById('three-canvas');
+    const image = canvas.toDataURL('image/png');
+    document.getElementById('canvasImageInput').value = image;
+});
+
+// save-canvas-btn-2
+// function captureCanvas() {
+//     renderer.render(scene, camera); // <== ещё раз на всякий случай
+//     // const canvas = document.getElementById('three-canvas');
+//     const image = canvas.toDataURL('image/png');
+//     document.getElementById('canvasImageInput').value = image;
+// }

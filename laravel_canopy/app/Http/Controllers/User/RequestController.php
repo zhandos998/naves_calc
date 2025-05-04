@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class RequestController extends Controller
 {
@@ -34,12 +35,13 @@ class RequestController extends Controller
             'per_m2' => 'required|numeric',
         ]);
 
-        DB::table('requests')->insert([
-            'user_id' => auth()->id(),
+        $user = auth()->user();
 
-            'name' => $request->name,
-            'phone' => $request->phone,
-            'email' => $request->email,
+        DB::table('requests')->insert([
+            'user_id' => $user->id,
+            'name' => $user->name,
+            'phone' => $user->phone,
+            'email' => $user->email,
 
             'width' => $request->width,
             'length' => $request->length,
@@ -64,4 +66,25 @@ class RequestController extends Controller
 
         return redirect()->back()->with('success', 'Заявка успешно отправлена!');
     }
+
+    public function downloadPdf(Request $request)
+    {
+        $data = $request->all();
+        // print_r($data);
+        $pdf = Pdf::loadView('pdf.calculation', ['data' => $data]);
+
+        // return view('pdf.calculation', ['data' => $data]);
+        return $pdf->download('naves-raschet.pdf');
+    }
+
+    public function myReports()
+    {
+        $requests = DB::table('requests')
+            ->where('user_id', auth()->id())
+            ->latest()
+            ->get();
+
+        return view('requests.my', compact('requests'));
+    }
+
 }

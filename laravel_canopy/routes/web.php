@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\CommodityController as AdminCommodityController;
 use App\Http\Controllers\Admin\ServiceController as AdminServiceController;
 use App\Http\Controllers\Admin\CalcController as AdminCalcController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\RequestController as AdminRequestController;
 
 
 use App\Http\Controllers\User\PageController;
@@ -48,6 +49,8 @@ Route::prefix('admin')->middleware(['auth'])->name('admin.')->group(function () 
     Route::resource('services', AdminServiceController::class)->names('services');
     Route::get('/calc', [AdminCalcController::class, 'index'])->name('calc.index');
     Route::post('/calc', [AdminCalcController::class, 'update'])->name('calc.update');
+    Route::get('/requests', [AdminRequestController::class, 'index'])->name('requests.index');
+
 });
 
 
@@ -71,4 +74,9 @@ Route::get('/calc', [CalcController::class, 'index'])->name('calc.index');
 Route::post('/calc', [CalcController::class, 'calculate'])->name('calc.calculate');
 
 Route::post('/request', [RequestController::class, 'store'])->name('request.store');
+
+Route::post('/calc/download-pdf', [RequestController::class, 'downloadPdf'])->name('request.download_pdf');
+
+Route::middleware('auth')->get('/my-reports', [RequestController::class, 'myReports'])->name('request.my');
+Route::get('/calc/from-request/{id}', [CalcController::class, 'fromSaved'])->name('calc.from_request');
 

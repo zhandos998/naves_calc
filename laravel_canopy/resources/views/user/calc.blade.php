@@ -35,41 +35,43 @@
 
                     <label class="block">
                         <span class="text-gray-700">Ширина (м)</span>
-                        <input type="number" name="width" id="input-width" value="4" step="0.1"
+
+
+                        <input type="number" name="width" id="input-width" value="{{ old('width', $prefill['width'] ?? 4) }}" step="0.1"
                             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" required />
                     </label>
 
                     <label class="block">
                         <span class="text-gray-700">Длина (м)</span>
-                        <input type="number" name="length" id="input-depth" value="8" step="0.1"
+                        <input type="number" name="length" id="input-depth" value="{{ old('width', $prefill['length'] ?? 8) }}" step="0.1"
                             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" required />
                     </label>
 
                     <label class="block">
                         <span class="text-gray-700">Высота (м)</span>
-                        <input type="number" name="height" id="input-height" value="3" step="0.1"
+                        <input type="number" name="height" id="input-height" value="{{ old('width', $prefill['height'] ?? 3) }}" step="0.1"
                             class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" required />
                     </label>
 
                     <label class="block">
                         <span class="text-gray-700">Толщина столбцов</span>
                         <select name="post_thickness" id="input-post-thickness" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
-                            <option value="0.06">60 × 60 мм</option>
-                            <option value="0.08">80 × 80 мм</option>
-                            <option value="0.10">100 × 100 мм</option>
-                            <option value="0.12">120 × 120 мм</option>
+                            <option value="0.06" {{ ($prefill['post_thickness'] ?? '') == '0.06' ? 'selected' : '' }}>60 × 60 мм</option>
+                            <option value="0.08" {{ ($prefill['post_thickness'] ?? '') == '0.08' ? 'selected' : '' }}>80 × 80 мм</option>
+                            <option value="0.10" {{ ($prefill['post_thickness'] ?? '') == '0.10' ? 'selected' : '' }}>100 × 100 мм</option>
+                            <option value="0.12" {{ ($prefill['post_thickness'] ?? '') == '0.12' ? 'selected' : '' }}>120 × 120 мм</option>
                         </select>
                     </label>
 
                     <label class="block">
                         <span class="text-gray-700">Форма</span>
                         <select name="frame_type" id="input-frame-type" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
-                            <option value="arched">Арочный</option>
-                            <option value="half-arched">Полуарочный</option>
-                            <option value="single-slope">Односкатный</option>
-                            <option value="triangular">Треугольный</option>
-                            <option value="channel">Швелер</option>
-                            <option value="double-slope">Двухскатный</option>
+                            <option value="arched" {{ ($prefill['frame_type'] ?? '') == 'arched' ? 'selected' : '' }}>Арочный</option>
+                            <option value="half-arched" {{ ($prefill['frame_type'] ?? '') == 'half-arched' ? 'selected' : '' }}>Полуарочный</option>
+                            <option value="single-slope" {{ ($prefill['frame_type'] ?? '') == 'single-slope' ? 'selected' : '' }}>Односкатный</option>
+                            <option value="triangular" {{ ($prefill['frame_type'] ?? '') == 'triangular' ? 'selected' : '' }}>Треугольный</option>
+                            <option value="channel" {{ ($prefill['frame_type'] ?? '') == 'channel' ? 'selected' : '' }}>Швелер</option>
+                            <option value="double-slope" {{ ($prefill['frame_type'] ?? '') == 'double-slope' ? 'selected' : '' }}>Двухскатный</option>
                         </select>
                     </label>
 
@@ -154,6 +156,7 @@
 
 
             <div class="bg-white p-6 rounded-lg shadow space-y-4">
+                @auth
                 <div class="flex flex-col space-y-2">
                     @if(session('calc_result'))
                     <form method="POST" action="{{ route('request.store') }}">
@@ -181,11 +184,39 @@
                     </form>
                     @endif
                 </div>
+                @else
+                <div class="text-center mt-4 p-4 bg-yellow-100 border border-yellow-300 text-yellow-800 rounded">
+                    Чтобы сохранить расчёт и отправить заявку — <a href="{{ route('login') }}" class="underline font-semibold">войдите</a> или <a href="{{ route('register') }}" class="underline font-semibold">зарегистрируйтесь</a>.
+                </div>
+                @endauth
+                <div class="flex flex-col space-y-2">
+                    @if(session('calc_result'))
+                        <form method="POST" action="{{ route('request.download_pdf') }}" id="pdfForm">
+                            @csrf
+                            <input type="hidden" name="canvas_image" id="canvasImageInput">
+                            <input type="hidden" name="width" value="{{ session('input.width') }}">
+                            <input type="hidden" name="length" value="{{ session('input.length') }}">
+                            <input type="hidden" name="height" value="{{ session('input.height') }}">
+                            <input type="hidden" name="post_thickness" value="{{ session('input.post_thickness') }}">
+                            <input type="hidden" name="frame_type" value="{{ session('input.frame_type') }}">
+
+                            @foreach (session('calc_result') as $key => $value)
+                                <input type="hidden" name="{{ $key }}" value="{{ $value }}">
+                            @endforeach
+
+                            <button type="submit" id="save-canvas-btn-2" class="mt-3 w-full bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded">
+                                Скачать PDF с изображением
+                            </button>
+                        </form>
+                    @endif
+
+                </div>
             </div>
         </div>
         @endif
 
     </div>
+
 
     {{-- Three.js --}}
     <script type="importmap">
@@ -198,4 +229,26 @@
     </script>
 
     <script type="module" src="{{ asset('js/main_v2_comm.js') }}"></script>
+
+    {{-- <script>
+
+        document.getElementById('save-canvas-btn').addEventListener('click', () => {
+            renderer.render(scene, camera); // <== ещё раз на всякий случай
+            // const canvas = document.getElementById('three-canvas');
+            const image = canvas.toDataURL('image/png');
+
+            const link = document.createElement('a');
+            link.href = image;
+            link.download = 'canopy-visualization.png';
+            link.click();
+        });
+
+        function captureCanvas() {
+            renderer.render(scene, camera); // <== ещё раз на всякий случай
+            // const canvas = document.getElementById('three-canvas');
+            const image = canvas.toDataURL('image/png');
+            document.getElementById('canvasImageInput').value = image;
+        }
+    </script> --}}
+
 </x-app-layout>
