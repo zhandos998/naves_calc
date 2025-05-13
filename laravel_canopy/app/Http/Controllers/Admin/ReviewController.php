@@ -23,7 +23,7 @@ class ReviewController extends Controller
     {
         Review::create($request->only('name', 'content'));
 
-        return redirect()->route('reviews.index')->with('success', 'Отзыв добавлен.');
+        return redirect()->route('admin.reviews.index')->with('success', 'Отзыв добавлен.');
     }
 
     public function edit(Review $review)
@@ -35,13 +35,13 @@ class ReviewController extends Controller
     {
         $review->update($request->only('name', 'content'));
 
-        return redirect()->route('reviews.index')->with('success', 'Отзыв обновлён.');
+        return redirect()->route('admin.reviews.index')->with('success', 'Отзыв обновлён.');
     }
 
     public function destroy(Review $review)
     {
         $review->delete();
 
-        return redirect()->route('reviews.index')->with('success', 'Отзыв удалён.');
+        return redirect()->route('admin.reviews.index')->with('success', 'Отзыв удалён.');
     }
 }

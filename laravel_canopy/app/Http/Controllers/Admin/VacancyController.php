@@ -23,7 +23,7 @@ class VacancyController extends Controller
     {
         Vacancy::create($request->only('title', 'description'));
 
-        return redirect()->route('vacancies.index')->with('success', 'Вакансия добавлена.');
+        return redirect()->route('admin.vacancies.index')->with('success', 'Вакансия добавлена.');
     }
 
     public function edit(Vacancy $vacancy)
@@ -35,13 +35,13 @@ class VacancyController extends Controller
     {
         $vacancy->update($request->only('title', 'description'));
 
-        return redirect()->route('vacancies.index')->with('success', 'Вакансия обновлена.');
+        return redirect()->route('admin.vacancies.index')->with('success', 'Вакансия обновлена.');
     }
 
     public function destroy(Vacancy $vacancy)
     {
         $vacancy->delete();
 
-        return redirect()->route('vacancies.index')->with('success', 'Вакансия удалена.');
+        return redirect()->route('admin.vacancies.index')->with('success', 'Вакансия удалена.');
     }
 }

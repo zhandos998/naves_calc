@@ -28,13 +28,13 @@ class PortfolioController extends Controller
         ]);
 
         if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('uploads/portfolio', 'public');
+            $imagePath = $request->file('image')->store('images/portfolio', 'public');
             $validated['image'] = $imagePath;
         }
 
         Portfolio::create($validated);
 
-        return redirect()->route('portfolio.index')->with('success', 'Работа добавлена.');
+        return redirect()->route('admin.portfolio.index')->with('success', 'Работа добавлена.');
     }
 
     public function edit(Portfolio $portfolio)
@@ -57,20 +57,20 @@ class PortfolioController extends Controller
             }
 
             // Сохранить новое
-            $imagePath = $request->file('image')->store('uploads/portfolio', 'public');
+            $imagePath = $request->file('image')->store('images/portfolio', 'public');
             $validated['image'] = $imagePath;
         }
 
         // Обновляем именно эту запись
         $portfolio->update($validated);
 
-        return redirect()->route('portfolio.index')->with('success', 'Работа обновлена.');
+        return redirect()->route('admin.portfolio.index')->with('success', 'Работа обновлена.');
     }
 
     public function destroy(Portfolio $portfolio)
     {
         $portfolio->delete();
 
-        return redirect()->route('portfolio.index')->with('success', 'Работа удалена.');
+        return redirect()->route('admin.portfolio.index')->with('success', 'Работа удалена.');
     }
 }

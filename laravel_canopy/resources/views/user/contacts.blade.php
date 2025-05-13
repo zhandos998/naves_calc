@@ -12,21 +12,21 @@
                 <div class="space-y-4">
                     <h3 class="text-xl font-semibold text-gray-800">Наш офис</h3>
                     <p class="text-gray-600">
-                        г. Алматы, ул. Абая 123
+                        {{$contacts->address}}
                     </p>
                 </div>
 
                 <div class="space-y-4">
                     <h3 class="text-xl font-semibold text-gray-800">Телефон</h3>
                     <p class="text-gray-600">
-                        +7 (777) 123-45-67
+                        {{$contacts->phone}}
                     </p>
                 </div>
 
                 <div class="space-y-4">
                     <h3 class="text-xl font-semibold text-gray-800">Электронная почта</h3>
                     <p class="text-gray-600">
-                        info@supercanopy.kz
+                        {{$contacts->email}}
                     </p>
                 </div>
 

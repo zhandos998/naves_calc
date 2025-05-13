@@ -66,7 +66,8 @@ class CalcController extends Controller
         $final_price = $total - $discount;
 
 
-        return back()->with([
+        return response()->json([
+            'success' => true,
             'calc_result' => [
                 'area' => round($area, 2),
                 'materials' => round($materials),

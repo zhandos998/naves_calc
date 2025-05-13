@@ -64,7 +64,9 @@ class RequestController extends Controller
             'updated_at' => now(),
         ]);
 
-        return redirect()->back()->with('success', 'Заявка успешно отправлена!');
+
+        return response()->json(['success' => true]);
+        // return redirect()->back()->with('success', 'Заявка успешно отправлена!');
     }
 
     public function downloadPdf(Request $request)

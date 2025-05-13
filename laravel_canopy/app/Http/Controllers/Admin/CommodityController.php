@@ -31,7 +31,7 @@ class CommodityController extends Controller
         ]);
 
         if ($request->hasFile('image')) {
-            $validated['image'] = $request->file('image')->store('uploads/commodities', 'public');
+            $validated['image'] = $request->file('image')->store('images/commodities', 'public');
         }
 
         Commodity::create($validated);
@@ -57,7 +57,7 @@ class CommodityController extends Controller
         ]);
 
         if ($request->hasFile('image')) {
-            $validated['image'] = $request->file('image')->store('uploads/commodities', 'public');
+            $validated['image'] = $request->file('image')->store('images/commodities', 'public');
         }
 
         $commodity->update($validated);

@@ -30,7 +30,7 @@ class ServiceController extends Controller
         ]);
 
         if ($request->hasFile('image')) {
-            $validated['image'] = $request->file('image')->store('uploads/services', 'public');
+            $validated['image'] = $request->file('image')->store('images/services', 'public');
         }
 
         Service::create($validated);
@@ -54,7 +54,7 @@ class ServiceController extends Controller
         ]);
 
         if ($request->hasFile('image')) {
-            $validated['image'] = $request->file('image')->store('uploads/services', 'public');
+            $validated['image'] = $request->file('image')->store('images/services', 'public');
         }
 
         $service->update($validated);

@@ -8,7 +8,7 @@
     <div class="bg-gray-100">
         {{-- Слайдер (просто изображение, можно заменить на компонент JS слайдера) --}}
         <div class="overflow-hidden shadow-lg">
-            <img src="/images/slider.png" alt="Навесы SuperCanopy" class="w-full object-cover" style="height:45rem">
+            <img src="/storage/images/slider.png" alt="Навесы SuperCanopy" class="w-full object-cover" style="height:45rem">
         </div>
 
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12 py-12">
