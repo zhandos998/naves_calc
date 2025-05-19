@@ -26,5 +26,10 @@
                 {{ $slot }}
             </div>
         </div>
+
+        @include('layouts.ai-bot')
+
+        @include('layouts.form')
+
     </body>
 </html>

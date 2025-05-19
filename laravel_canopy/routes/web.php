@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\ServiceController as AdminServiceController;
 use App\Http\Controllers\Admin\CalcController as AdminCalcController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\RequestController as AdminRequestController;
+use App\Http\Controllers\Admin\AiChatController as AdminAiChatController;
 
 
 use App\Http\Controllers\User\PageController;
@@ -21,6 +22,8 @@ use App\Http\Controllers\User\CommodityController;
 use App\Http\Controllers\User\ServiceController;
 use App\Http\Controllers\User\CalcController;
 use App\Http\Controllers\User\RequestController;
+use App\Http\Controllers\Admin\CrmLeadController;
+
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -38,7 +41,7 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__.'/auth.php';
 
-Route::prefix('admin')->middleware(['auth'])->name('admin.')->group(function () {
+Route::prefix('admin')->middleware(['auth','admin'])->name('admin.')->group(function () {
     Route::get('/', [AdminController::class, 'index'])->name('dashboard');
     Route::resource('about', AdminAboutController::class)->only(['edit', 'update']);
     Route::resource('contacts', AdminContactController::class)->only(['edit', 'update']);
@@ -50,6 +53,10 @@ Route::prefix('admin')->middleware(['auth'])->name('admin.')->group(function () 
     Route::get('/calc', [AdminCalcController::class, 'index'])->name('calc.index');
     Route::post('/calc', [AdminCalcController::class, 'update'])->name('calc.update');
     Route::get('/requests', [AdminRequestController::class, 'index'])->name('requests.index');
+    Route::get('/leads', [CrmLeadController::class, 'index'])->name('leads');
+    Route::get('/ai-chats', [AdminAiChatController::class, 'index'])->name('ai-chats');
+    Route::get('/ai-chats/{id}', [AdminAiChatController::class, 'show'])->name('ai-chats.show');
+
 
 });
 

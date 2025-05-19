@@ -31,6 +31,16 @@
             <main>
                 {{ $slot }}
             </main>
+
         </div>
+
+        @include('layouts.ai-bot')
+
+        @role('admin')
+            {{-- @include('layouts.form') --}}
+        @else
+            @include('layouts.form')
+        @endif
+
     </body>
 </html>
